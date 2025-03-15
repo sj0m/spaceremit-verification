@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="spaceremit-verification" content="2RUMFPJYOE3D6QK5CFKEJW8EMPOT7IIG8S2N907PDHOUB2B74Z">
+  <title>Secure Payment</title>
+    
+    <!-- CSS لتنسيق الموقع -->
+    <style>
+        /* استايل عام للصفحة */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* الحاوية الرئيسية */
+        .container {
+            width: 400px;
+            background: #ffffff;
+            padding: 20px;
+            margin: 50px auto;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+
+        /* العنوان */
+        h2 {
+            color: #333;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        /* الحقول */
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+        }
+
+        input:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.3);
+        }
+
+        /* زر الدفع */
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* خيارات الدفع */
+        .payment-options {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .payment-options label {
+            display: block;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .payment-options label:hover {
+            background: #e2e6ea;
+        }
+
+        .payment-options input {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Secure Payment</h2>
+        <form id="spaceremit-form">
+            <input type="hidden" name="amount" value="1">
+            <input type="hidden" name="currency" value="USD">
+            <input type="text" name="fullname" placeholder="Full Name" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="text" name="phone" placeholder="Phone" required>
+            <input type="text" name="notes" placeholder="Additional Notes">
+
+            <!-- خيارات الدفع -->
+            <div class="payment-options">
+                <label>
+                    <input type="radio" name="sp-pay-type-radio" value="local-methods-pay" checked>
+                    Local Payment Methods
+                </label>
+                <label>
+                    <input type="radio" name="sp-pay-type-radio" value="card-pay">
+                    Card Payment
+                </label>
+            </div>
+
+            <button type="submit">Pay</button>
+        </form>
+    </div>
+
+    <!-- JavaScript الخاص بـ Spaceremit -->
+    <script src="https://spaceremit.com/api/v2/js_script/spaceremit.js"></script>
+    <script>
+        const SP_PUBLIC_KEY = "YOUR_PUBLIC_KEY"; // مفتاح الموقع العام
+        const SP_FORM_ID = "#spaceremit-form"; // تعريف النموذج
+
+        // إعدادات الدفع
+        const LOCAL_METHODS_BOX_STATUS = true;
+        const LOCAL_METHODS_PARENT_ID = "#spaceremit-local-methods-pay";
+        const CARD_BOX_STATUS = true;
+        const CARD_BOX_PARENT_ID = "#spaceremit-card-pay";
+        let SP_FORM_AUTO_SUBMIT_WHEN_GET_CODE = true;
+
+        // عمليات الدفع
+        function SP_SUCCESSFUL_PAYMENT(spaceremit_code) {
+            alert("Payment successful! Code: " + spaceremit_code);
+        }
+
+        function SP_FAILD_PAYMENT() {
+            alert("Payment failed. Please try again.");
+        }
+
+        function SP_NEED_AUTH(target_auth_link) {
+            window.location.href = target_auth_link;
+        }
+    </script>
+
+</body>
+</html>
